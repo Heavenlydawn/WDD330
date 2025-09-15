@@ -1,3 +1,4 @@
 /cart     /cart/index.html   200
 /product  /product/index.html 200
+/product_pages/*  /product_pages/:splat  200
 /*        /index.html        200
