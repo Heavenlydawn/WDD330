@@ -1,0 +1,28 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/cart"
+  to = "/cart/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/product"
+  to = "/product/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/product_pages"
+  to = "/product_pages/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/product_pages/*"
+  to = "/product_pages/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
