@@ -9,15 +9,21 @@ export default class ProductDetails {
   }
 
   async init() {
+    console.log('ProductDetails init called');
     // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
     this.product = await this.dataSource.findProductById(this.productId);
+    console.log('Product loaded:', this.product);
     // the product details are needed before rendering the HTML
     this.renderProductDetails();
     // once the HTML is rendered, add a listener to the Add to Cart button
     // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on 'this' to understand why.
-    document
-      .getElementById('addToCart')
-      .addEventListener('click', this.addProductToCart.bind(this));
+    const addToCartBtn = document.getElementById('addToCart');
+    console.log('Add to Cart button:', addToCartBtn);
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', this.addProductToCart.bind(this));
+    } else {
+      console.log('Add to Cart button not found');
+    }
   }
 
   addProductToCart() {
@@ -27,11 +33,16 @@ export default class ProductDetails {
 
     // Animate the cart icon
     const cartElement = document.querySelector('.cart');
+    console.log('Cart element found:', cartElement);
     if (cartElement) {
       cartElement.classList.add('animate');
+      console.log('Added animate class');
       setTimeout(() => {
         cartElement.classList.remove('animate');
+        console.log('Removed animate class');
       }, 1000);
+    } else {
+      console.log('Cart element not found');
     }
   }
 
