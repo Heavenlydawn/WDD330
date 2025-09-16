@@ -1,5 +1,5 @@
 /cart     /cart/index.html   200
 /product  /product/index.html 200
-/product_pages  /product_pages/index.html  200
-/product_pages/*  /product_pages/:splat  200
+/product_pages/*  /product_pages/index.html  200
+/product_pages/index.html/*  /product_pages/index.html  200
 /*        /index.html        200
