@@ -2,6 +2,13 @@
   publish = "dist"
   command = "npm run build"
 
+# Handle SPA routing - fallback to index.html for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Specific redirects for known routes
 [[redirects]]
   from = "/cart"
   to = "/cart/index.html"
@@ -12,6 +19,7 @@
   to = "/product/index.html"
   status = 200
 
+# Product pages - handle both the folder and specific files
 [[redirects]]
   from = "/product_pages"
   to = "/product_pages/index.html"
@@ -22,7 +30,23 @@
   to = "/product_pages/:splat"
   status = 200
 
+# Handle specific product detail pages
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/product_pages/cedar-ridge-rimrock-2"
+  to = "/product_pages/cedar-ridge-rimrock-2.html"
+  status = 200
+
+[[redirects]]
+  from = "/product_pages/marmot-ajax-3"
+  to = "/product_pages/marmot-ajax-3.html"
+  status = 200
+
+[[redirects]]
+  from = "/product_pages/northface-alpine-3"
+  to = "/product_pages/northface-alpine-3.html"
+  status = 200
+
+[[redirects]]
+  from = "/product_pages/northface-talus-4"
+  to = "/product_pages/northface-talus-4.html"
   status = 200

@@ -1,5 +1,16 @@
+# Handle SPA routing - fallback to index.html for client-side routing
+/*        /index.html        200
+
+# Specific redirects for known routes
 /cart     /cart/index.html   200
 /product  /product/index.html 200
-/product_pages/*  /product_pages/index.html  200
-/product_pages/index.html/*  /product_pages/index.html  200
-/*        /index.html        200
+
+# Product pages - handle both the folder and specific files
+/product_pages     /product_pages/index.html   200
+/product_pages/*   /product_pages/:splat        200
+
+# Handle specific product detail pages
+/product_pages/cedar-ridge-rimrock-2    /product_pages/cedar-ridge-rimrock-2.html    200
+/product_pages/marmot-ajax-3           /product_pages/marmot-ajax-3.html            200
+/product_pages/northface-alpine-3      /product_pages/northface-alpine-3.html       200
+/product_pages/northface-talus-4       /product_pages/northface-talus-4.html        200
