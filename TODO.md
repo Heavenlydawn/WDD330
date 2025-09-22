@@ -10,8 +10,8 @@
 - [x] Ensure product_pages folder is included in build output (dist/)
 - [x] Test redirects locally or on Netlify
 - [x] Fix inconsistent redirect configurations between netlify.toml and _redirects
-- [ ] Standardize asset paths from relative to absolute for better Netlify compatibility
-- [ ] Update all product page HTML files with correct asset paths
+- [x] Standardize asset paths from relative to absolute for better Netlify compatibility
+- [x] Update all product page HTML files with correct asset paths
 
 ## Build Configuration
 - [x] Check vite.config.js for any exclusions or inclusions of product_pages
