@@ -150,6 +150,72 @@ button {
 
 /* End cart icon styles */
 
+/* Search styles */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  flex: 1;
+  justify-content: space-between;
+  max-width: 500px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--light-grey);
+  border-radius: 25px;
+  font-size: var(--font-base);
+  outline: none;
+  transition: border-color 0.3s ease;
+  min-width: 200px;
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(240, 168, 104, 0.1);
+}
+
+.search-button {
+  color: white;
+  border: none;
+  border-radius: 100%;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background: var(--tertiary-color);
+}
+
+.search-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* No results message */
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--dark-grey);
+  list-style: none;
+}
+
+.no-results p {
+  margin: 0.5rem 0;
+  font-size: var(--font-base);
+}
+
+.no-results p:first-child {
+  font-weight: bold;
+  color: var(--tertiary-color);
+}
+
+/* End search styles */
+
 .mission {
   position: absolute;
   top: 1rem;
