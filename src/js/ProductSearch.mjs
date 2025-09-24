@@ -116,8 +116,17 @@ export default class ProductSearch {
     const li = document.createElement('li');
     li.className = 'product-card';
 
-    // Get the correct image path
-    const imagePath = product.Image ? product.Image.replace('../', '/') : '/images/tents/placeholder.jpg';
+    // Fix image path for production build
+    let imagePath = '/images/tents/placeholder.jpg';
+    if (product.Image) {
+      if (product.Image.startsWith('../')) {
+        imagePath = product.Image.replace('../images/', '/assets/images/');
+      } else if (product.Image.startsWith('/images/')) {
+        imagePath = '/assets' + product.Image;
+      } else {
+        imagePath = product.Image;
+      }
+    }
 
     // Get brand name
     const brandName = product.Brand ? product.Brand.Name : 'Unknown Brand';
