@@ -22,6 +22,11 @@ export default class ProductDetails {
     if (addToCartBtn) {
       addToCartBtn.addEventListener("click", this.addProductToCart.bind(this));
     }
+    // Add listener to the Add to Wishlist button
+    const addToWishlistBtn = document.getElementById("addToWishlist");
+    if (addToWishlistBtn) {
+      addToWishlistBtn.addEventListener("click", this.addProductToWishlist.bind(this));
+    }
   }
 
   addProductToCart() {
@@ -29,13 +34,32 @@ export default class ProductDetails {
     cartItems.push(this.product);
     setLocalStorage("so-cart", cartItems);
 
-    // Animate the cart icon
+    // Animate the cart icon SVG
     const cartElement = document.getElementById("cartIcon");
     if (cartElement) {
-      cartElement.classList.add("animate");
-      setTimeout(() => {
-        cartElement.classList.remove("animate");
-      }, 1000);
+      const svgElement = cartElement.querySelector("svg");
+      if (svgElement) {
+        svgElement.classList.remove("animate");
+        // Force reflow to restart animation
+        void svgElement.offsetWidth;
+        svgElement.classList.add("animate");
+        setTimeout(() => {
+          svgElement.classList.remove("animate");
+        }, 1000);
+      }
+    }
+  }
+
+  addProductToWishlist() {
+    const wishlistItems = getLocalStorage("so-wishlist") || [];
+    // Check if product is already in wishlist
+    const existingIndex = wishlistItems.findIndex(item => item.Id === this.product.Id);
+    if (existingIndex === -1) {
+      wishlistItems.push(this.product);
+      setLocalStorage("so-wishlist", wishlistItems);
+      alert("Product added to wishlist!");
+    } else {
+      alert("Product is already in your wishlist!");
     }
   }
 
