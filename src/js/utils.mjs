@@ -7,7 +7,8 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
@@ -37,4 +38,35 @@ export function renderListWithTemplate(template, parentElement, list, position =
     parentElement.innerHTML = "";
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+export function alertMessage(message, scroll = true) {
+  // Remove existing alert if any
+  const existingAlert = document.querySelector('.custom-alert');
+  if (existingAlert) {
+    existingAlert.remove();
+  }
+
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const alertDiv = document.createElement('div');
+  alertDiv.className = 'custom-alert';
+  alertDiv.style.backgroundColor = '#f8d7da';
+  alertDiv.style.color = '#721c24';
+  alertDiv.style.border = '1px solid #f5c6cb';
+  alertDiv.style.padding = '1em';
+  alertDiv.style.marginBottom = '1em';
+  alertDiv.style.borderRadius = '4px';
+  alertDiv.style.fontWeight = 'bold';
+  alertDiv.style.textAlign = 'center';
+  alertDiv.style.position = 'relative';
+
+  alertDiv.textContent = typeof message === 'string' ? message : JSON.stringify(message);
+
+  main.insertBefore(alertDiv, main.firstChild);
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
