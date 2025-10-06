@@ -95,7 +95,28 @@ function productDetailsTemplate(product) {
 
   const productPrice = document.getElementById("productPrice");
   if (productPrice) {
-    productPrice.textContent = product.FinalPrice;
+    // Format price as currency
+    const priceFormatted = `$${product.FinalPrice.toFixed(2)}`;
+    productPrice.textContent = priceFormatted;
+
+    // Calculate discount if any
+    let discountText = "";
+    const suggestedPrice = product.SuggestedRetailPrice || product.ListPrice || 0;
+    if (suggestedPrice > product.FinalPrice) {
+      const discountPercent = Math.round(((suggestedPrice - product.FinalPrice) / suggestedPrice) * 100);
+      discountText = `${discountPercent}% OFF`;
+    }
+
+    // Create or update discount indicator element
+    let discountIndicator = document.getElementById("discountIndicator");
+    if (!discountIndicator) {
+      discountIndicator = document.createElement("span");
+      discountIndicator.id = "discountIndicator";
+      discountIndicator.className = "discount-indicator";
+      productPrice.parentNode.insertBefore(discountIndicator, productPrice.nextSibling);
+    }
+    discountIndicator.textContent = discountText;
+    discountIndicator.style.display = discountText ? "inline" : "none";
   }
 
   const productColor = document.getElementById("productColor");

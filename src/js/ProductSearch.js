@@ -1,4 +1,4 @@
-import ProductData from './ProductData.mjs';
+import ProductData from './ProductData.js';
 
 export default class ProductSearch {
   constructor() {
@@ -16,6 +16,9 @@ export default class ProductSearch {
   async init() {
     // Load all products
     await this.loadProducts();
+
+    // Render initial product list
+    this.updateProductDisplay();
 
     // Set up event listeners
     this.setupEventListeners();
@@ -104,8 +107,11 @@ export default class ProductSearch {
         }
       }
 
+      // Limit to 4 products on homepage
+      const productsToShow = this.filteredProducts.slice(0, 4);
+
       // Add filtered products
-      this.filteredProducts.forEach(product => {
+      productsToShow.forEach(product => {
         const productCard = this.createProductCard(product);
         this.productList.appendChild(productCard);
       });
@@ -119,14 +125,15 @@ export default class ProductSearch {
     // Fix image path for production build
     let imagePath = '/images/tents/placeholder.jpg';
     if (product.Image) {
-      if (product.Image.startsWith('../')) {
-        imagePath = product.Image.replace('../images/', '/assets/images/');
+      if (product.Image.startsWith('../images/tents/')) {
+        imagePath = product.Image.replace('../images/tents/', '/images/tents/');
       } else if (product.Image.startsWith('/images/')) {
-        imagePath = '/assets' + product.Image;
+        imagePath = product.Image;
       } else {
         imagePath = product.Image;
       }
     }
+    console.log(`Product: ${product.NameWithoutBrand || product.Name}, Image Path: ${imagePath}`);
 
     // Get brand name
     const brandName = product.Brand ? product.Brand.Name : 'Unknown Brand';
@@ -137,6 +144,14 @@ export default class ProductSearch {
     // Get price
     const price = product.FinalPrice || product.ListPrice || 'Price not available';
 
+    // Calculate discount if any
+    let discountText = "";
+    const suggestedPrice = product.SuggestedRetailPrice || product.ListPrice || 0;
+    if (suggestedPrice > product.FinalPrice) {
+      const discountPercent = Math.round(((suggestedPrice - product.FinalPrice) / suggestedPrice) * 100);
+      discountText = `${discountPercent}% OFF`;
+    }
+
     li.innerHTML = `
       <a href="product_pages/${this.getProductPageName(product)}.html">
         <img
@@ -146,6 +161,7 @@ export default class ProductSearch {
         <h3 class="card__brand">${brandName}</h3>
         <h2 class="card__name">${productName}</h2>
         <p class="product-card__price">$${price}</p>
+        <span class="discount-indicator" style="display: ${discountText ? 'inline' : 'none'};">${discountText}</span>
       </a>
     `;
 
@@ -153,13 +169,15 @@ export default class ProductSearch {
   }
 
   getProductPageName(product) {
-    // Create a URL-friendly name from the product name
-    const name = product.NameWithoutBrand || product.Name || 'unknown';
-    return name.toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim();
+    // Map product names to actual product page filenames
+    const pageMap = {
+      'ajax tent - 3-person, 3-season': 'marmot-ajax-3',
+      'talus tent - 4-person, 3-season': 'northface-talus-4',
+      'alpine guide tent - 3-person, 4-season': 'northface-alpine-3',
+      'rimrock tent - 2-person, 3-season': 'cedar-ridge-rimrock-2'
+    };
+    const name = (product.NameWithoutBrand || product.Name || 'unknown').toLowerCase().trim();
+    return pageMap[name] || 'index';
   }
 
   // Debounce function to limit API calls during typing

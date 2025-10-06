@@ -1,10 +1,8 @@
-# Wishlist Implementation TODO
+# TODO: Implement Discount Indicator on Product Listing
 
-## Tasks to Complete
-
-- [x] Update ProductDetails.mjs to add "Add to Wishlist" button and event handler
-- [x] Create wishlist.js module for rendering and managing wishlist items
-- [x] Add UI elements for wishlist (button on product details page)
-- [x] Create wishlist page or section for viewing saved items
-- [x] Update CSS for wishlist styling if needed
-- [ ] Test wishlist functionality (add/remove items, persistence)
+## Tasks
+- [x] Modify src/js/ProductSearch.mjs to render initial product list on page load
+- [x] Add discount calculation logic to createProductCard method
+- [x] Update product card HTML template to include discount indicator
+- [x] Remove hardcoded product list from src/index.html
+- [ ] Test the implementation to ensure discount indicators appear correctly

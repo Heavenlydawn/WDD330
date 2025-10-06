@@ -1,7 +1,7 @@
 // Import the main CSS file to ensure it is bundled by Vite
 import '../css/style.css';
 
-import ProductSearch from './ProductSearch.mjs';
+import ProductSearch from './ProductSearch.js';
 
 
 // Initialize the search functionality when the DOM is ready
